@@ -1,0 +1,78 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.topContainer {
+  margin-bottom: 34px;
+  text-align: center;
+}
+
+.title {
+  text-transform: capitalize !important;
+  color: #363434 !important;
+}
+
+.description {
+  margin-top: 5px !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  display: -webkit-box !important;
+  line-clamp: 3 !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-transform: capitalize !important;
+  color: #363434 !important;
+}
+
+.score {
+  color: #363434 !important;
+}
+
+.questionContainer {
+  margin-bottom: 15px;
+}
+
+.buttonContainer {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+}
+
+.button {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
+
+.loader {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wholePageLoader {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #eee;
+  opacity: 0.5;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}

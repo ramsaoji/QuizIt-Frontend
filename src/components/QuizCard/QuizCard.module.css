@@ -1,0 +1,87 @@
+.card {
+  height: 17rem;
+  max-height: 17rem;
+  max-width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 32px;
+  /* border: 1px solid black; */
+  border-radius: 24px;
+  color: #ffffff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+/* .count {
+  font-size: 48px !important;
+  font-weight: 700 !important;
+  margin-bottom: 0 !important;
+  line-height: 1 !important;
+} */
+
+/* .categoryTitle {
+  font-size: 32px !important;
+  font-weight: 600 !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  display: -webkit-box !important;
+  line-clamp: 2 !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-transform: capitalize !important;
+} */
+
+.title {
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  display: -webkit-box !important;
+  line-clamp: 2 !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-transform: capitalize !important;
+}
+
+.categoryDescription {
+  font-size: 18px !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  display: -webkit-box !important;
+  line-clamp: 3 !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-transform: capitalize !important;
+}
+
+.quizDescription {
+  font-size: 18px !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  display: -webkit-box !important;
+  line-clamp: 2 !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  text-transform: capitalize !important;
+}
+
+.footer {
+  font-size: 24px !important;
+  font-weight: 500 !important;
+  margin-bottom: 0 !important;
+}

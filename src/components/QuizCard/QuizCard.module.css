@@ -7,7 +7,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 10px;
-  padding: 32px;
+  padding: 24px 20px;
   /* border: 1px solid black; */
   border-radius: 24px;
   color: #ffffff;
@@ -39,6 +39,7 @@
 } */
 
 .title {
+  max-width: 200px !important;
   font-size: 28px !important;
   font-weight: 600 !important;
   margin-bottom: 0 !important;
@@ -53,6 +54,7 @@
 }
 
 .categoryDescription {
+  max-width: 200px !important;
   font-size: 18px !important;
   line-height: 1.4 !important;
   margin-bottom: 0 !important;
@@ -67,6 +69,7 @@
 }
 
 .quizDescription {
+  max-width: 200px !important;
   font-size: 18px !important;
   line-height: 1.4 !important;
   margin-bottom: 0 !important;
@@ -81,7 +84,9 @@
 }
 
 .footer {
+  max-width: 200px !important;
   font-size: 24px !important;
   font-weight: 500 !important;
   margin-bottom: 0 !important;
+  text-align: center !important;
 }

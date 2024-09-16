@@ -151,3 +151,13 @@ export const SUBMIT_QUIZ_MUTATION = gql`
     }
   }
 `;
+
+export const REGISTER_USER_MUTATION = gql`
+  mutation RegisterUser($email: String!, $displayName: String!, $uid: String!) {
+    registerUser(email: $email, displayName: $displayName, uid: $uid) {
+      _id
+      email
+      displayName
+    }
+  }
+`;

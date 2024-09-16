@@ -29,3 +29,67 @@ export const generateCategoryColorMap = (categories) => {
   });
   return colorMap;
 };
+
+// Custom error mapping function
+export const mapFirebaseError = (error) => {
+  switch (error.code) {
+    case "auth/invalid-credential":
+      return {
+        error: {
+          code: 400,
+          message: "INVALID_LOGIN_CREDENTIALS",
+          errors: [
+            {
+              message: "INVALID_LOGIN_CREDENTIALS",
+              domain: "global",
+              reason: "invalid",
+            },
+          ],
+        },
+      };
+    case "auth/user-not-found":
+      return {
+        error: {
+          code: 404,
+          message: "USER_NOT_FOUND",
+          errors: [
+            {
+              message: "USER_NOT_FOUND",
+              domain: "global",
+              reason: "notFound",
+            },
+          ],
+        },
+      };
+    case "auth/wrong-password":
+      return {
+        error: {
+          code: 401,
+          message: "WRONG_PASSWORD",
+          errors: [
+            {
+              message: "WRONG_PASSWORD",
+              domain: "global",
+              reason: "invalid",
+            },
+          ],
+        },
+      };
+    // Add more cases as needed for different Firebase error codes
+
+    default:
+      return {
+        error: {
+          code: 500,
+          message: "UNKNOWN_ERROR",
+          errors: [
+            {
+              message: error.message || "An unknown error occurred",
+              domain: "global",
+              reason: "unknown",
+            },
+          ],
+        },
+      };
+  }
+};

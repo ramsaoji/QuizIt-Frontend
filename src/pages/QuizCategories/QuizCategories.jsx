@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Box, InputAdornment, TextField, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { isEmpty } from "lodash";
 import QuizCard from "@/components/QuizCard/QuizCard";
 import Loader from "@/common/Loader";
@@ -10,6 +10,7 @@ import useGetAllCategories from "@/hooks/useGetAllCategories"; // Updated import
 import styles from "./QuizCategories.module.css";
 
 const QuizCategories = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
   const {
@@ -17,6 +18,12 @@ const QuizCategories = () => {
     error: quizCategoriesError,
     loading: isQuizCategoriesLoading,
   } = useGetAllCategories();
+
+  useEffect(() => {
+    if (!isQuizCategoriesLoading && isEmpty(allCategories)) {
+      navigate("/generate-quiz");
+    }
+  }, [allCategories, isQuizCategoriesLoading]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -50,6 +57,7 @@ const QuizCategories = () => {
   return (
     <>
       {/* Header and Search */}
+
       <Box className={styles.headerContainer}>
         <Typography
           className={styles.title}
@@ -63,40 +71,43 @@ const QuizCategories = () => {
           Let's Quiz It
         </Typography>
         {/* Search */}
-        <TextField
-          id="outlined-basic"
-          variant="outlined"
-          placeholder="Search Category..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon sx={{ fontSize: "32px" }} />
-              </InputAdornment>
-            ),
-            classes: {
-              root: styles.textFieldRoot, // Apply root styles
-              input: styles.textFieldInput, // Apply input text styles
-            },
-          }}
-          sx={{
-            width: {
-              xs: "100%", // width for mobile devices
-              md: "50%", // width for desktop devices
-            },
-            "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "gray !important",
-            },
-            "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "gray !important",
-            },
-            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
+        {!isEmpty(allCategories) && (
+          <TextField
+            id="outlined-basic"
+            variant="outlined"
+            placeholder="Search Category..."
+            value={searchTerm}
+            onChange={handleSearchChange}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon sx={{ fontSize: "32px" }} />
+                </InputAdornment>
+              ),
+              classes: {
+                root: styles.textFieldRoot, // Apply root styles
+                input: styles.textFieldInput, // Apply input text styles
+              },
+            }}
+            sx={{
+              width: {
+                xs: "100%", // width for mobile devices
+                md: "50%", // width for desktop devices
+              },
+              "& .MuiOutlinedInput-notchedOutline": {
                 borderColor: "gray !important",
               },
-          }}
-        />
+              "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: "gray !important",
+                },
+              "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+                {
+                  borderColor: "gray !important",
+                },
+            }}
+          />
+        )}
       </Box>
 
       {/* Cards */}

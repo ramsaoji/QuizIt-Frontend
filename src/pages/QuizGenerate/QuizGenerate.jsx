@@ -16,9 +16,11 @@ import Loader from "@/common/Loader";
 import GeneratedQuiz from "@/components/GeneratedQuiz/GeneratedQuiz";
 import useGenerateQuiz from "@/hooks/useGenerateQuiz";
 import useCreateQuizEndToEnd from "@/hooks/useCreateQuizEndToEnd";
+import { useAuth } from "@/hooks/useAuth";
 import styles from "./QuizGenerate.module.css";
 
 const QuizGenerate = () => {
+  const { currentUser, loading: authLoading } = useAuth();
   const [prompt, setPrompt] = useState("");
   const [promptError, setPromptError] = useState(null);
   const [quizData, setQuizData] = useState(null);
@@ -68,47 +70,51 @@ const QuizGenerate = () => {
 
   const handleGenerateQuiz = () => {
     setPromptError("");
-    if (prompt) {
-      generateQuizMutation(prompt, {
-        onError: (errorResponse) => {
-          const errorData = errorResponse?.response?.data;
-          if (errorData?.error === "Invalid Prompt") {
-            console.log("Invalid Prompt Error ---", errorData);
-            setPromptError(errorData);
-            enqueueSnackbar("Invalid prompt. Please try again.", {
-              variant: "warning",
-            });
-          } else if (errorData?.error === "Internal Server Error") {
-            console.error("Server Error ---", errorData.details);
-            enqueueSnackbar("An error occurred. Please try again later.", {
-              variant: "error",
-            });
-          } else {
-            console.error("Unexpected Error ---", errorResponse);
-            enqueueSnackbar("An unexpected error occurred.", {
-              variant: "error",
-            });
-          }
-        },
-        onSuccess: (data) => {
-          if (data.error) {
-            console.log("Quiz Generation Error ---", data.message);
-            setPromptError(data.message);
-            enqueueSnackbar(
-              "Failed to generate quiz. Please try a different prompt.",
-              {
+    if (prompt && currentUser) {
+      const token = currentUser?.stsTokenManager?.accessToken;
+      generateQuizMutation(
+        { prompt, token },
+        {
+          onError: (errorResponse) => {
+            const errorData = errorResponse?.response?.data;
+            if (errorData?.error === "Invalid Prompt") {
+              console.log("Invalid Prompt Error ---", errorData);
+              setPromptError(errorData);
+              enqueueSnackbar("Invalid prompt. Please try again.", {
                 variant: "warning",
-              }
-            );
-          } else {
-            console.log("Quiz Generated Successfully ---", data);
-            enqueueSnackbar("Quiz generated successfully!", {
-              variant: "success",
-            });
-            // Handle successful quiz generation here (e.g., update state, navigate to quiz view)
-          }
-        },
-      });
+              });
+            } else if (errorData?.error === "Internal Server Error") {
+              console.error("Server Error ---", errorData.details);
+              enqueueSnackbar("An error occurred. Please try again later.", {
+                variant: "error",
+              });
+            } else {
+              console.error("Unexpected Error ---", errorResponse);
+              enqueueSnackbar("An unexpected error occurred.", {
+                variant: "error",
+              });
+            }
+          },
+          onSuccess: (data) => {
+            if (data.error) {
+              console.log("Quiz Generation Error ---", data.message);
+              setPromptError(data.message);
+              enqueueSnackbar(
+                "Failed to generate quiz. Please try a different prompt.",
+                {
+                  variant: "warning",
+                }
+              );
+            } else {
+              console.log("Quiz Generated Successfully ---", data);
+              enqueueSnackbar("Quiz generated successfully!", {
+                variant: "success",
+              });
+              // Handle successful quiz generation here (e.g., update state, navigate to quiz view)
+            }
+          },
+        }
+      );
     } else {
       setPromptError("Please enter a prompt before generating a quiz.");
     }

@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { CREATE_QUIZ_MUTATION } from "@/graphql/queries";
+import { CREATE_QUIZ_MUTATION, GET_ALL_CATEGORIES } from "@/graphql/queries";
 
 const useCreateQuizMutation = (onSuccess, onError) => {
   return useMutation(CREATE_QUIZ_MUTATION, {
@@ -9,6 +9,7 @@ const useCreateQuizMutation = (onSuccess, onError) => {
         onSuccess(data.createQuiz);
       }
     },
+    refetchQueries: [{ query: GET_ALL_CATEGORIES }],
   });
 };
 

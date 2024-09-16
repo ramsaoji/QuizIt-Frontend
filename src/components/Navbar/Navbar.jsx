@@ -1,12 +1,29 @@
 import React from "react";
-import { Box, Button, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, useMediaQuery } from "@mui/material";
 import { Link } from "react-router-dom";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { useApolloClient } from "@apollo/client";
+import { useAuth } from "@/hooks/useAuth";
+import { signOut } from "firebase/auth";
+import { auth } from "@/firebase-config";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
+  const { currentUser } = useAuth();
+  const client = useApolloClient();
   const isSmallScreen = useMediaQuery("(max-width:600px)");
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      await client.clearStore(); // Clears all cached data after sign-out
+    } catch (error) {
+      console.error("Error signing out: ", error);
+    }
+  };
+
   return (
     <Box
       className={styles.navbar}
@@ -50,23 +67,51 @@ const Navbar = () => {
         </Link>
       </Box>
 
-      <Box className={styles.navLinks}>
-        <Link to="/generate-quiz">
+      {currentUser && (
+        <Box
+          className={styles.navLinks}
+          sx={{
+            gap: isSmallScreen ? "16px" : "",
+          }}
+        >
+          {/* Generate Quiz btn */}
+          <Link to="/generate-quiz">
+            <Button
+              variant="outlined"
+              className={styles.navBtn}
+              size={isSmallScreen ? "small" : "medium"} // Conditional size
+              sx={{ height: isSmallScreen ? "30px" : "35px" }}
+            >
+              <AutoAwesomeOutlinedIcon
+                sx={{
+                  fontSize: isSmallScreen ? "16px" : "20px",
+                  marginRight: "5px",
+                }} // Adjust icon size if needed
+              />
+              <span>{isSmallScreen ? "Gen Quiz" : "Generate Quiz"}</span>
+            </Button>
+          </Link>
+          {/* Sign Out btn */}
           <Button
             variant="outlined"
             className={styles.navBtn}
-            size={isSmallScreen ? "small" : "medium"} // Conditional size
+            size={isSmallScreen ? "small" : "medium"}
+            sx={{
+              height: isSmallScreen ? "30px" : "35px",
+              minWidth: isSmallScreen ? "32px" : "",
+            }}
+            onClick={handleSignOut}
           >
-            <AutoAwesomeOutlinedIcon
+            <LogoutIcon
               sx={{
-                fontSize: isSmallScreen ? "16px" : "20px",
-                marginRight: "5px",
-              }} // Adjust icon size if needed
+                fontSize: "20px",
+                marginRight: isSmallScreen ? "0px" : "5px",
+              }}
             />
-            <span>{isSmallScreen ? "Gen Quiz" : "Generate Quiz"}</span>
+            {!isSmallScreen && <span>Sign Out</span>}
           </Button>
-        </Link>
-      </Box>
+        </Box>
+      )}
     </Box>
   );
 };

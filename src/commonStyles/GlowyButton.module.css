@@ -1,0 +1,56 @@
+.glowyBtn {
+  color: #363434 !important;
+  background: transparent;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 0 10px rgba(255, 74, 42, 0.5), 0 0 10px rgba(42, 134, 255, 0.5);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.glowyBtn:hover {
+  box-shadow: 0 0 12px rgba(255, 74, 42, 0.8), 0 0 12px rgba(42, 134, 255, 0.8);
+}
+
+.glowyBtn::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    #ff4a2a,
+    transparent 30%,
+    transparent 60%,
+    #2a86ff,
+    transparent 90%
+  );
+  animation: rotate 4s linear infinite;
+}
+
+.glowyBtn::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: white;
+  border-radius: inherit;
+}
+
+.buttonContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

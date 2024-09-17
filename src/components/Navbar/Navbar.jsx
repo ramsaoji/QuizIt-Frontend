@@ -1,19 +1,41 @@
-import React from "react";
-import { Box, Button, useMediaQuery } from "@mui/material";
+import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  useMediaQuery,
+  Avatar,
+  Menu,
+  MenuItem,
+  Tooltip,
+  IconButton,
+  Divider,
+  ListItemIcon,
+} from "@mui/material";
 import { Link } from "react-router-dom";
-// import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import LogoutIcon from "@mui/icons-material/Logout";
+import { Logout } from "@mui/icons-material";
 import { useApolloClient } from "@apollo/client";
 import { useAuth } from "@/hooks/useAuth";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase-config";
+import GlowyButton from "@/common/GlowyButton";
 import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const { currentUser } = useAuth();
   const client = useApolloClient();
   const isSmallScreen = useMediaQuery("(max-width:600px)");
+
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const openMenu = Boolean(anchorEl);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleSignOut = async () => {
     try {
@@ -71,45 +93,103 @@ const Navbar = () => {
         <Box
           className={styles.navLinks}
           sx={{
-            gap: isSmallScreen ? "16px" : "",
+            gap: isSmallScreen ? "20px" : "",
           }}
         >
           {/* Generate Quiz btn */}
-          <Link to="/generate-quiz">
-            <Button
-              variant="outlined"
-              className={styles.navBtn}
-              size={isSmallScreen ? "small" : "medium"} // Conditional size
-              sx={{ height: isSmallScreen ? "30px" : "35px" }}
-            >
+          <GlowyButton
+            isSmallScreen={isSmallScreen}
+            path="/generate-quiz"
+            icon={
               <AutoAwesomeOutlinedIcon
                 sx={{
                   fontSize: isSmallScreen ? "16px" : "20px",
                   marginRight: "5px",
-                }} // Adjust icon size if needed
+                }}
               />
-              <span>{isSmallScreen ? "Gen Quiz" : "Generate Quiz"}</span>
-            </Button>
-          </Link>
-          {/* Sign Out btn */}
-          <Button
-            variant="outlined"
-            className={styles.navBtn}
-            size={isSmallScreen ? "small" : "medium"}
-            sx={{
-              height: isSmallScreen ? "30px" : "35px",
-              minWidth: isSmallScreen ? "32px" : "",
+            }
+            smallBtnText="Gen Quiz"
+            bigBtnText="Generate Quiz"
+          />
+
+          {/* Avatar and Menu */}
+          <Tooltip title="Account settings">
+            <IconButton
+              onClick={handleMenuClick}
+              aria-controls={openMenu ? "account-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={openMenu ? "true" : undefined}
+              sx={{ padding: 0 }}
+            >
+              <Avatar
+                className={styles.avatar}
+                sx={{
+                  width: isSmallScreen ? 36 : 42,
+                  height: isSmallScreen ? 36 : 42,
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                  bgcolor: "#fc816c",
+                }}
+              >
+                {currentUser?.displayName[0]}
+              </Avatar>
+            </IconButton>
+          </Tooltip>
+          <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={openMenu}
+            onClose={handleMenuClose}
+            onClick={handleMenuClose}
+            slotProps={{
+              paper: {
+                elevation: 0,
+                sx: {
+                  overflow: "visible",
+                  filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                  mt: 1.5,
+                  "& .MuiAvatar-root": {
+                    width: 32,
+                    height: 32,
+                    ml: -0.5,
+                    mr: 1,
+                  },
+                  "&::before": {
+                    content: '""',
+                    display: "block",
+                    position: "absolute",
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: "background.paper",
+                    transform: "translateY(-50%) rotate(45deg)",
+                    zIndex: 0,
+                  },
+                },
+              },
             }}
-            onClick={handleSignOut}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+            sx={{ zIndex: 9999 }}
           >
-            <LogoutIcon
+            <MenuItem
               sx={{
-                fontSize: "20px",
-                marginRight: isSmallScreen ? "0px" : "5px",
+                textTransform: "capitalize",
+                fontWeight: 600,
+                color: "#363434",
               }}
-            />
-            {!isSmallScreen && <span>Sign Out</span>}
-          </Button>
+            >
+              <Avatar /> {currentUser?.displayName}
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleSignOut}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Sign Out
+            </MenuItem>
+          </Menu>
         </Box>
       )}
     </Box>
@@ -117,12 +197,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-{
-  /* <Typography className={styles.navLink}>
-          <span>Category</span>
-          <ExpandMoreIcon />
-        </Typography>
-        <Typography className={styles.navLink}>Generate Quiz</Typography>
-        <Typography className={styles.navLink}>Contact</Typography> */
-}

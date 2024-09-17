@@ -10,13 +10,14 @@
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.navContent {
+/* .navContent {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 64px;
   width: 100%;
-}
+  
+} */
 
 .navBrand {
   font-size: 28px;
@@ -38,15 +39,20 @@
   color: #363434 !important;
 }
 
-.navLink {
+/* .navLink {
   font-size: 20px !important;
   font-weight: 500 !important;
   display: flex !important;
   align-items: center !important;
   gap: 10px !important;
+} */
+
+.avatar {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
 }
 
-.navBtn {
+/* .navBtn {
   color: #363434 !important;
   border-color: #363434 !important;
   cursor: pointer;
@@ -57,4 +63,4 @@
   outline: 1.5px solid gray !important;
   background-color: rgba(227, 226, 226, 0.61) !important;
   transition: 1ms ease;
-}
+} */

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Button,
   useMediaQuery,
   Avatar,
   Menu,
@@ -123,6 +122,8 @@ const Navbar = () => {
             >
               <Avatar
                 className={styles.avatar}
+                alt={currentUser?.displayName}
+                src={currentUser?.photoURL}
                 sx={{
                   width: isSmallScreen ? 36 : 42,
                   height: isSmallScreen ? 36 : 42,
@@ -130,9 +131,7 @@ const Navbar = () => {
                   fontWeight: 600,
                   bgcolor: "#fc816c",
                 }}
-              >
-                {currentUser?.displayName[0]}
-              </Avatar>
+              />
             </IconButton>
           </Tooltip>
           <Menu
@@ -180,7 +179,11 @@ const Navbar = () => {
                 color: "#363434",
               }}
             >
-              <Avatar /> {currentUser?.displayName}
+              <Avatar
+                alt={currentUser?.displayName}
+                src={currentUser?.photoURL}
+              />
+              {currentUser?.displayName}
             </MenuItem>
             <Divider />
             <MenuItem onClick={handleSignOut}>

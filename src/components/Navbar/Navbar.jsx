@@ -131,7 +131,9 @@ const Navbar = () => {
                   fontWeight: 600,
                   bgcolor: "#fc816c",
                 }}
-              />
+              >
+                {currentUser?.displayName?.charAt(0)}
+              </Avatar>
             </IconButton>
           </Tooltip>
           <Menu
@@ -182,7 +184,9 @@ const Navbar = () => {
               <Avatar
                 alt={currentUser?.displayName}
                 src={currentUser?.photoURL}
-              />
+              >
+                {currentUser?.displayName?.charAt(0)}
+              </Avatar>
               {currentUser?.displayName}
             </MenuItem>
             <Divider />

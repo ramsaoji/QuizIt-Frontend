@@ -106,11 +106,9 @@ const QuizGenerate = () => {
                 }
               );
             } else {
-              console.log("Quiz Generated Successfully ---", data);
               enqueueSnackbar("Quiz generated successfully!", {
                 variant: "success",
               });
-              // Handle successful quiz generation here (e.g., update state, navigate to quiz view)
             }
           },
         }

@@ -39,6 +39,11 @@ export const GET_QUIZZES_BY_CATEGORY_SLUG = gql`
       title
       description
       slug
+      category {
+        _id
+        name
+        slug
+      }
       questions {
         _id
         question
@@ -158,6 +163,24 @@ export const REGISTER_USER_MUTATION = gql`
       _id
       email
       displayName
+    }
+  }
+`;
+
+export const DELETE_CATEGORY_MUTATION = gql`
+  mutation DeleteCategory($categoryId: ID!) {
+    deleteCategory(categoryId: $categoryId) {
+      success
+      message
+    }
+  }
+`;
+
+export const DELETE_QUIZ_MUTATION = gql`
+  mutation DeleteQuiz($quizId: ID!) {
+    deleteQuiz(quizId: $quizId) {
+      success
+      message
     }
   }
 `;

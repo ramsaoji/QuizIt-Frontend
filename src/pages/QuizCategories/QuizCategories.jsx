@@ -118,7 +118,7 @@ const QuizCategories = () => {
               <QuizCard
                 item={item}
                 index={index}
-                backgroundColor={colorMap[item.name]} // Adjusted field
+                backgroundColor={colorMap[item.name]}
               />
             </Link>
           ))}

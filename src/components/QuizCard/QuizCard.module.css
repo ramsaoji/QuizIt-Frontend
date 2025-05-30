@@ -4,11 +4,8 @@
   max-width: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  padding: 24px 20px;
-  /* border: 1px solid black; */
+  align-items: stretch;
+  padding: 0;
   border-radius: 24px;
   color: #ffffff;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
@@ -17,26 +14,22 @@
   cursor: pointer;
 }
 
-/* .count {
-  font-size: 48px !important;
-  font-weight: 700 !important;
-  margin-bottom: 0 !important;
-  line-height: 1 !important;
-} */
+.cardHeader {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+  min-height: 40px;
+}
 
-/* .categoryTitle {
-  font-size: 32px !important;
-  font-weight: 600 !important;
-  margin-bottom: 0 !important;
-  text-align: center !important;
-  display: -webkit-box !important;
-  line-clamp: 2 !important;
-  -webkit-line-clamp: 2 !important;
-  -webkit-box-orient: vertical !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  text-transform: capitalize !important;
-} */
+.cardContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 24px;
+}
 
 .title {
   max-width: 200px !important;
@@ -89,4 +82,19 @@
   font-weight: 500 !important;
   margin-bottom: 0 !important;
   text-align: center !important;
+}
+
+.deleteButton {
+  width: 36px !important;
+  height: 36px !important;
+  color: white !important;
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.deleteButton:hover {
+  background-color: rgba(255, 0, 0, 0.3) !important;
+}
+
+.deleteButton svg {
+  font-size: 20px !important;
 }

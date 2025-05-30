@@ -3,13 +3,13 @@
   background: transparent;
   border: none !important;
   outline: none !important;
-  box-shadow: 0 0 10px rgba(255, 74, 42, 0.5), 0 0 10px rgba(42, 134, 255, 0.5);
+  box-shadow: 0 0 6px rgba(255, 74, 42, 0.5), 0 0 6px rgba(42, 134, 255, 0.5);
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .glowyBtn:hover {
-  box-shadow: 0 0 12px rgba(255, 74, 42, 0.8), 0 0 12px rgba(42, 134, 255, 0.8);
+  box-shadow: 0 0 8px rgba(255, 74, 42, 0.7), 0 0 8px rgba(42, 134, 255, 0.7);
 }
 
 .glowyBtn::before {
@@ -19,7 +19,7 @@
   left: -50%;
   width: 200%;
   height: 200%;
-  background: conic-gradient(
+  /* background: conic-gradient(
     from 0deg,
     transparent,
     #ff4a2a,
@@ -27,8 +27,9 @@
     transparent 60%,
     #2a86ff,
     transparent 90%
-  );
-  animation: rotate 4s linear infinite;
+  ); */
+  background: #ff4a2a;
+  /* animation: 4s linear infinite; */
 }
 
 .glowyBtn::after {

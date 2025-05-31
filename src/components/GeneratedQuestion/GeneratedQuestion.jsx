@@ -43,14 +43,14 @@ const GeneratedQuestion = ({ item, index }) => {
                 }) ${option}`}</Typography>
               ))}
             </Box>
-            <FormHelperText
+            {/* <FormHelperText
               sx={{
                 fontSize: "16px",
                 fontWeight: 600,
                 marginX: 0,
                 color: "#363434",
               }}
-            >{`Answer - ${item?.answer}`}</FormHelperText>
+            >{`Answer - ${item?.answer}`}</FormHelperText> */}
           </FormControl>
         </AccordionDetails>
       </Accordion>
